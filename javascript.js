@@ -1,5 +1,9 @@
+let button = document.querySelector("button");
+let container = document.querySelector('.container');
+
+button.onclick = newGridClicked;
+
 function createBoard(gridWidth = 16) {
-    let container = document.querySelector('.container');
     let measure = 800 / gridWidth;
 
     for (let i = 0; i < gridWidth; i++) {
@@ -10,10 +14,22 @@ function createBoard(gridWidth = 16) {
             pixel.setAttribute("class", "pixel");
             pixel.style.height = measure + 'px';
             pixel.style.width = measure + 'px';
+            
             row.appendChild(pixel);
         }
         container.appendChild(row);
     }
+}
+
+function newGridClicked() {
+    let size = prompt("Please enter a new grid size. Max of 100.");
+    if (size > 100) {
+        newGridClicked();
+    } else {
+        container.innerHTML = '';
+        createBoard(size);
+    }
+    return;
 }
 
 createBoard();

@@ -9,17 +9,13 @@
     width: 900px;
     height: 900px;
     flex-direction: column;
-    /* flex-grow: 1; */
 }
 
 .row {
     display: flex;
-    /* flex-grow: 1; */
 }
 
 .pixel {
     border: 1px;
     border-style: solid;
-    /* height: 40px;
-    width: 40px; */
 }
