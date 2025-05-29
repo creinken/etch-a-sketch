@@ -3,6 +3,8 @@ let container = document.querySelector('.container');
 
 button.onclick = newGridClicked;
 
+createBoard();
+
 function createBoard(gridWidth = 16) {
     let measure = 800 / gridWidth;
 
@@ -14,6 +16,9 @@ function createBoard(gridWidth = 16) {
             pixel.setAttribute("class", "pixel");
             pixel.style.height = measure + 'px';
             pixel.style.width = measure + 'px';
+            pixel.addEventListener("mouseenter", (e) => {
+                pixel.style.background = 'hsla(0, 0.00%, 0.00%, 0.50)';
+            });
             
             row.appendChild(pixel);
         }
@@ -31,5 +36,3 @@ function newGridClicked() {
     }
     return;
 }
-
-createBoard();
