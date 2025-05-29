@@ -17,7 +17,8 @@ function createBoard(gridWidth = 16) {
             pixel.style.height = measure + 'px';
             pixel.style.width = measure + 'px';
             pixel.addEventListener("mouseenter", (e) => {
-                pixel.style.background = 'hsla(0, 0.00%, 0.00%, 0.50)';
+
+                pixel.style.backgroundColor = setHslaColor();
             });
             
             row.appendChild(pixel);
@@ -35,4 +36,21 @@ function newGridClicked() {
         createBoard(size);
     }
     return;
+}
+
+function getHslaColor(element) {
+    const style = window.getComputedStyle(element);
+    const backgroundColor = style.backgroundColor;
+    const parts = backgroundColor.slice(5, -1).split(',');
+    return parts;
+}
+
+function setHslaColor() {
+    let hue = Math.floor(Math.random() * 360);
+    let sat = Math.floor(Math.random() * 100);
+    let light = Math.floor(Math.random() * 100);
+    let hsla = `hsla(${hue}, ${sat}%, ${light}%, 0.5)`;
+
+    console.log(hsla);
+    return hsla;
 }
