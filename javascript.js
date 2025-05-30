@@ -39,30 +39,31 @@ function newGridClicked() {
 
 function getRgbaColor(element) {
     const partsString = element.style.backgroundColor.slice(5, -1).split(',');
-    console.log(partsString);
-    if (partsString.length == 3) {
-        return [parseInt(partsString[0]), parseInt(partsString[1]), parseInt(partsString[2])];
-    } else {
-        return [parseInt(partsString[0]), parseInt(partsString[1]), parseInt(partsString[2]), cleanFloat(partsString[3])];
-    }
+
+    return partsString;
+
+    // if (partsString.length == 3) {
+    //     return [parseInt(partsString[0]), parseInt(partsString[1]), parseInt(partsString[2])];
+    // } else {
+    //     return [parseInt(partsString[0]), parseInt(partsString[1]), parseInt(partsString[2]), cleanFloat(partsString[3])];
+    // }
 }
 
 function setHslaColor(element) {
     let color = getRgbaColor(element);
     let hsla;
 
-    if (color[3] > 0 && color[3] < 1){
-        hsla = rgbToHsl(color[0], color[1], color[2], (cleanFloat(color[3]) + .1));
-        console.log(hsla);
-        return hsla;
-    } else if (color[3] == 1) {
-        hsla = rgbToHsl(color[0], color[1], color[2], 1);
-        return hsla;
-    } else {
+    if (color.length == 1) {
         let hue = Math.floor(Math.random() * 360);
         let sat = (Math.random() * 100);
         let light = (Math.random() * 100);
         hsla = `hsla(${hue}, ${sat}%, ${light}%, 0.1)`;
+        return hsla;
+    } else if (color.length == 3) {
+        hsla = rgbToHsl(color[0], color[1], color[2], 1);
+        return hsla;
+    } else {
+        hsla = rgbToHsl(color[0], color[1], color[2], (parseFloat(color[3]) + .1));
         return hsla;
     }
 }
@@ -98,18 +99,12 @@ function rgbToHsl(r, g, b, a) {
 
   s = delta === 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
 
-  s = +(s * 100).toFixed(1);
-  l = +(l * 100).toFixed(1);
+  s = +(s * 100).toFixed(2);
+  l = +(l * 100).toFixed(2);
 
     if (a !== undefined) {
         return `hsla(${h}, ${s}%, ${l}%, ${a})`
     } else {
         return `hsla(${h}, ${s}%, ${l}%, 1)`;
     }
-}
-
-function cleanFloat(floatString) {
-    let number = parseFloat(floatString);
-
-    return (Math.ceil(Math.floor(number * 100) / 10) / 10);
 }
